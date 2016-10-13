@@ -4,19 +4,19 @@ import java.util.Date;
 
 public class ReceivingMetrics {
 	
-	public Long pallet;
+	public String pallet;
 	public int rcvdQty;
-	Date rcvdDate;
-	public ReceivingMetrics(Long pallet, int rcvdQty, Date rcvdDate) {
+	public Date rcvdDate;
+	public ReceivingMetrics(String pallet, int rcvdQty, Date rcvdDate) {
 		super();
 		this.pallet = pallet;
 		this.rcvdQty = rcvdQty;
 		this.rcvdDate = rcvdDate;
 	}
-	public Long getPallet() {
+	public String getPallet() {
 		return pallet;
 	}
-	public void setPallet(Long pallet) {
+	public void setPallet(String pallet) {
 		this.pallet = pallet;
 	}
 	public int getRcvdQty() {
