@@ -18,4 +18,5 @@ public class IgniteController {
 public ReceivingMetrics getRcvMetrics(){
 	return new ReceivingMetrics("11111",10, date) ;
 }
+
 }
