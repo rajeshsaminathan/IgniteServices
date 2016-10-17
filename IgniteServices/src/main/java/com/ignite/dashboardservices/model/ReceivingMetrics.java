@@ -1,18 +1,20 @@
 package com.ignite.dashboardservices.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class ReceivingMetrics {
 	
 	public String pallet;
 	public int rcvdQty;
-	public Date rcvdDate;
-	public ReceivingMetrics(String pallet, int rcvdQty, Date rcvdDate) {
+    public Timestamp rcvdDate;
+	
+	public ReceivingMetrics(String pallet, int rcvdQty, Timestamp rcvdDate) {
 		super();
 		this.pallet = pallet;
 		this.rcvdQty = rcvdQty;
 		this.rcvdDate = rcvdDate;
 	}
+		
 	public String getPallet() {
 		return pallet;
 	}
@@ -25,12 +27,11 @@ public class ReceivingMetrics {
 	public void setRcvdQty(int rcvdQty) {
 		this.rcvdQty = rcvdQty;
 	}
-	public Date getRcvdDate() {
+	public Timestamp getRcvdDate() {
 		return rcvdDate;
 	}
-	public void setRcvdDate(Date rcvdDate) {
+	public void setRcvdDate(Timestamp rcvdDate) {
 		this.rcvdDate = rcvdDate;
 	}
 	
-	
-}
+	}

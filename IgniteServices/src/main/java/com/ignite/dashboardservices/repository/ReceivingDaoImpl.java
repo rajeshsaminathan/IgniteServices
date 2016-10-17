@@ -1,6 +1,7 @@
 package com.ignite.dashboardservices.repository;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -16,7 +17,7 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 
 	@Autowired
 	DataSource dataSource;
-	Date date;
+	Timestamp date;
 
 	@PostConstruct
     private void initialize(){
@@ -26,9 +27,10 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 	
 	@Override
 	public ReceivingMetrics getReceivingMetrics(String palletId) {
-		String query = "SELECT pallet, rcvd_qty" + " from public.receiving_log where receiving_log.pallet = " +palletId ;
+		/**String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp" + " from public.receiving_log where receiving_log.pallet = " +palletId ;**/
+		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp" + " from public.receiving_log";
 
-		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {return new ReceivingMetrics(resultSet.getString(1), resultSet.getInt(2),date);
+		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {return new ReceivingMetrics(resultSet.getString(1),resultSet.getInt(2),resultSet.getTimestamp(3));
 		});
 		}
 
