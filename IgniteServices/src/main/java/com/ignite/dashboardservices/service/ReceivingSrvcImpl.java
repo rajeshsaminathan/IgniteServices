@@ -1,5 +1,7 @@
 package com.ignite.dashboardservices.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,12 @@ public class ReceivingSrvcImpl implements ReceivingSrvc {
 	public ReceivingMetrics getReceivingMetrics(String palletId) {
 		return receivingDao.getReceivingMetrics(palletId);
 	}
+
+	public List<ReceivingMetrics> getallReceivingMetrics() {
+		// TODO Auto-generated method stub
+		return receivingDao.getallReceivingMetrics();
+	}
+
+
 
 }

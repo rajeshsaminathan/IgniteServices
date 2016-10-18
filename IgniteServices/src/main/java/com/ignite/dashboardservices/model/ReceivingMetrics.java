@@ -15,6 +15,12 @@ public class ReceivingMetrics {
 		this.rcvdDate = rcvdDate;
 	}
 		
+	public ReceivingMetrics() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
 	public String getPallet() {
 		return pallet;
 	}
