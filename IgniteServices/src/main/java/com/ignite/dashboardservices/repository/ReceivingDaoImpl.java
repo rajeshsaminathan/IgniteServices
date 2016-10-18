@@ -1,6 +1,7 @@
 package com.ignite.dashboardservices.repository;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 				+ " from public.receiving_log where receiving_log.pallet = " + palletId;
 
 		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {
-			return new ReceivingMetrics(resultSet.getString(1), resultSet.getInt(2), resultSet.getTimestamp(3));
+			return new ReceivingMetrics(resultSet.getString(1), resultSet.getInt(2), resultSet.getString(3));
 		});
 	}
 
@@ -45,7 +46,7 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 			ReceivingMetrics rcvMetrics = new ReceivingMetrics();
 			rcvMetrics.setPallet((String) row.get("pallet"));
 			rcvMetrics.setRcvdQty((int) row.get("rcvd_qty"));
-			rcvMetrics.setRcvdDate((Timestamp) row.get("rcvd_date"));
+			rcvMetrics.setRcvdDate(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((Timestamp) row.get("rcvd_date")));
 			result.add(rcvMetrics);
 		}
 		return result;

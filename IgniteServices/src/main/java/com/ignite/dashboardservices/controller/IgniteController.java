@@ -19,12 +19,15 @@ public class IgniteController {
 	@RequestMapping("/palletinquiry")
 	public ReceivingMetrics getRcvMetrics(@RequestParam(value = "pallet") String palletId) {
 		return receivingDaoSrvc.getReceivingMetrics(palletId);
+		
+		/*return new SimpleDateFormat("MM/dd/yyyy HH:mm").format(receivingDaoSrvc.getReceivingMetrics(palletId).rcvdDate);*/
 	}
 
 	@RequestMapping("/listpallet")
 	public List<ReceivingMetrics> getallRcvMetrics() {
 		return receivingDaoSrvc.getallReceivingMetrics();
-
-	}
+		}
+	
+	
 
 }

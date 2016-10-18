@@ -1,14 +1,12 @@
 package com.ignite.dashboardservices.model;
 
-import java.sql.Timestamp;
-
 public class ReceivingMetrics {
 	
 	public String pallet;
 	public int rcvdQty;
-    public Timestamp rcvdDate;
+    public String rcvdDate;
 	
-	public ReceivingMetrics(String pallet, int rcvdQty, Timestamp rcvdDate) {
+	public ReceivingMetrics(String pallet, int rcvdQty, String rcvdDate) {
 		super();
 		this.pallet = pallet;
 		this.rcvdQty = rcvdQty;
@@ -33,10 +31,10 @@ public class ReceivingMetrics {
 	public void setRcvdQty(int rcvdQty) {
 		this.rcvdQty = rcvdQty;
 	}
-	public Timestamp getRcvdDate() {
+	public String getRcvdDate() {
 		return rcvdDate;
 	}
-	public void setRcvdDate(Timestamp rcvdDate) {
+	public void setRcvdDate(String rcvdDate) {
 		this.rcvdDate = rcvdDate;
 	}
 	
