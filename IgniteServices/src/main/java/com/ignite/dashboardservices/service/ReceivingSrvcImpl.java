@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
+import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.repository.ReceivingDao;
 
 @Service
@@ -20,10 +21,13 @@ public class ReceivingSrvcImpl implements ReceivingSrvc {
 	}
 
 	public List<ReceivingMetrics> getallReceivingMetrics() {
-		// TODO Auto-generated method stub
 		return receivingDao.getallReceivingMetrics();
 	}
 
+	@Override
+	public List<SlotMetrics> getSlotMetrics(String slotArea) {
+		return receivingDao.getSlotMetrics(slotArea);
+	}
 
 
 }

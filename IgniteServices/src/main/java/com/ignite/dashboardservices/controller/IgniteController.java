@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
+import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.service.ReceivingSrvc;
 
 @RestController
@@ -28,6 +29,19 @@ public class IgniteController {
 		return receivingDaoSrvc.getallReceivingMetrics();
 		}
 	
+	@RequestMapping("/slot/SSTK")
+	public List<SlotMetrics> getSSTKSlotMetrics() {
+		return receivingDaoSrvc.getSlotMetrics("SSTK");
+		}
+
+	@RequestMapping("/slot/PBYL")
+	public List<SlotMetrics> getPBYLSlotMetrics() {
+		return receivingDaoSrvc.getSlotMetrics("PBYL");
+		}
 	
+	@RequestMapping("/slot/EASYPICK")
+	public List<SlotMetrics> getPickSlotMetrics() {
+		return receivingDaoSrvc.getSlotMetrics("EASYPICK");
+		}
 
 }

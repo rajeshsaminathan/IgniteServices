@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
+import com.ignite.dashboardservices.model.SlotMetrics;
 
 @Repository
 public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
@@ -33,7 +34,7 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp"
 				+ " from public.receiving_log where receiving_log.pallet = " + palletId;
 
-		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {
+ 		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {
 			return new ReceivingMetrics(resultSet.getString(1), resultSet.getInt(2), resultSet.getString(3));
 		});
 	}
@@ -41,7 +42,7 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 	public List<ReceivingMetrics> getallReceivingMetrics() {
 		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp" + " from public.receiving_log";
 		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
-		List<ReceivingMetrics> result = new ArrayList<ReceivingMetrics>();
+		List<ReceivingMetrics> result = new ArrayList<>();
 		for (Map<String, Object> row : rows) {
 			ReceivingMetrics rcvMetrics = new ReceivingMetrics();
 			rcvMetrics.setPallet((String) row.get("pallet"));
@@ -51,5 +52,21 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 		}
 		return result;
 	}
+	
+public List<SlotMetrics> getSlotMetrics(String slotString){
+	String query = "SELECT slot_status,slot_count from public.slot_metrics" + 
+					" where slot_area = '"+ slotString + "'";
+	List<Map <String, Object>> rows = getJdbcTemplate().queryForList(query);
+	List<SlotMetrics> slotResult = new ArrayList<SlotMetrics>();
+	
+	for (Map<String, Object> row:rows){
+		SlotMetrics slotMet = new SlotMetrics();
+		slotMet.setSlotStatus((String)row.get("slot_status"));
+		slotMet.setCount((int)row.get("slot_count"));
+		slotResult.add(slotMet);
+	}
+	return slotResult;
+	
+} 	
 
 }
