@@ -33,61 +33,72 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 	public ReceivingMetrics getReceivingMetrics(String palletId) {
 
 		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp"
-				+ " from public.receiving_log where receiving_log.pallet = " + palletId;
+				+ " from public.receiving_log where receiving_log.pallet = "
+				+ palletId;
 
- 		return getJdbcTemplate().queryForObject(query, (resultSet, i) -> {
-			return new ReceivingMetrics(resultSet.getString(1), resultSet.getInt(2), resultSet.getString(3));
-		});
+		return getJdbcTemplate().queryForObject(
+				query,
+				(resultSet, i) -> {
+					return new ReceivingMetrics(resultSet.getString(1),
+							resultSet.getInt(2), resultSet.getString(3));
+				});
 	}
 
 	public List<ReceivingMetrics> getallReceivingMetrics() {
-		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp" + " from public.receiving_log";
+		String query = "SELECT pallet, rcvd_qty,rcvd_date::timestamp"
+				+ " from public.receiving_log";
 		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
 		List<ReceivingMetrics> result = new ArrayList<>();
 		for (Map<String, Object> row : rows) {
 			ReceivingMetrics rcvMetrics = new ReceivingMetrics();
 			rcvMetrics.setPallet((String) row.get("pallet"));
 			rcvMetrics.setRcvdQty((int) row.get("rcvd_qty"));
-			rcvMetrics.setRcvdDate(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format((Timestamp) row.get("rcvd_date")));
+			rcvMetrics.setRcvdDate(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
+					.format((Timestamp) row.get("rcvd_date")));
 			result.add(rcvMetrics);
 		}
 		return result;
 	}
-	
-public List<SlotMetrics> getSlotMetrics(String slotString){
-	String query = "SELECT slot_status,slot_count from public.slot_metrics" + 
-					" where slot_area = '"+ slotString + "'";
-	List<Map <String, Object>> rows = getJdbcTemplate().queryForList(query);
-	List<SlotMetrics> slotResult = new ArrayList<SlotMetrics>();
-	
-	for (Map<String, Object> row:rows){
-		SlotMetrics slotMet = new SlotMetrics();
-		slotMet.setSlotStatus((String)row.get("slot_status"));
-		slotMet.setCount((int)row.get("slot_count"));
-		slotResult.add(slotMet);
+
+	public List<SlotMetrics> getSlotMetrics(String slotString) {
+		String query = "SELECT slot_status,slot_count from public.slot_metrics"
+				+ " where slot_area = '" + slotString + "'";
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
+		List<SlotMetrics> slotResult = new ArrayList<SlotMetrics>();
+
+		for (Map<String, Object> row : rows) {
+			SlotMetrics slotMet = new SlotMetrics();
+			slotMet.setSlotStatus((String) row.get("slot_status"));
+			slotMet.setCount((int) row.get("slot_count"));
+			slotResult.add(slotMet);
+		}
+		return slotResult;
+
 	}
-	return slotResult;
-	
-}
 
-@Override
-public SlotStatus getSlotStatus(String slotArea) {
-	
-	String query = "SELECT slot_status,slot_count from public.slot_metrics" + 
-			" where slot_area = '"+ slotArea + "'";
-List<Map <String, Object>> rows = getJdbcTemplate().queryForList(query);
-List<SlotMetrics> slotResults = new ArrayList<SlotMetrics>();
+	@Override
+	public SlotStatus getSlotStatus(String slotArea) {
 
-for (Map<String, Object> row:rows){
-SlotMetrics slotMet = new SlotMetrics();
-slotMet.setSlotStatus((String)row.get("slot_status"));
-slotMet.setCount((int)row.get("slot_count"));
-slotResults.add(slotMet);
-}
-	
-SlotStatus slotStatus = new SlotStatus(100,slotResults);
-return slotStatus;
+		int totalSlot;
+		String query = "SELECT slot_status,slot_count from public.slot_metrics"
+				+ " where slot_area = '" + slotArea + "'";
+		List<Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
+		List<SlotMetrics> slotResults = new ArrayList<SlotMetrics>();
 
-}
+		for (Map<String, Object> row : rows) {
+			SlotMetrics slotMet = new SlotMetrics();
+			slotMet.setSlotStatus((String) row.get("slot_status"));
+			slotMet.setCount((int) row.get("slot_count"));
+			slotResults.add(slotMet);
+		}
+		
+		String query1 = " select sum(slot_count) from public.slot_metrics" 
+				+ " where slot_area = '" + slotArea + "'";
+		totalSlot = getJdbcTemplate().queryForObject(query1,Integer.class);
+		
+		SlotStatus slotStatus = new SlotStatus(totalSlot, slotResults);
+		return slotStatus;
+
+	}
 
 }
