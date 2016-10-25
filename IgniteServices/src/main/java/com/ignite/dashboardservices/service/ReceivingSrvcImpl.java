@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
+import com.ignite.dashboardservices.model.SlotStatus;
 import com.ignite.dashboardservices.repository.ReceivingDao;
 
 @Service
@@ -27,6 +28,11 @@ public class ReceivingSrvcImpl implements ReceivingSrvc {
 	@Override
 	public List<SlotMetrics> getSlotMetrics(String slotArea) {
 		return receivingDao.getSlotMetrics(slotArea);
+	}
+
+	@Override
+	public SlotStatus getSlotStatus(String slotArea) {
+		return receivingDao.getSlotStatus(slotArea);
 	}
 
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
+import com.ignite.dashboardservices.model.SlotStatus;
 import com.ignite.dashboardservices.service.ReceivingSrvc;
 
 @RestController
@@ -18,10 +19,8 @@ public class IgniteController {
 	ReceivingSrvc receivingDaoSrvc;
 
 	@RequestMapping("/")
-	public ReceivingMetrics helloWorld() {
-		System.out.println("Welcome to Ignite 2.0");
-		return null;
-
+	public String helloWorld() {
+				return "Welcome to Ignite 2.0";
 	}
 
 	@RequestMapping("/palletinquiry")
@@ -54,6 +53,11 @@ public class IgniteController {
 	@RequestMapping("/slot/EASYPICK")
 	public List<SlotMetrics> getPickSlotMetrics() {
 		return receivingDaoSrvc.getSlotMetrics("EASYPICK");
+	}
+	
+	@RequestMapping("/slotstatus/SSTK")
+	public SlotStatus getSSTKSlotStatus() {
+		return receivingDaoSrvc.getSlotStatus("SSTK");
 	}
 
 }

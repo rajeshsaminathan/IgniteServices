@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
+import com.ignite.dashboardservices.model.SlotStatus;
 
 @Repository
 public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
@@ -67,6 +68,26 @@ public List<SlotMetrics> getSlotMetrics(String slotString){
 	}
 	return slotResult;
 	
-} 	
+}
+
+@Override
+public SlotStatus getSlotStatus(String slotArea) {
+	
+	String query = "SELECT slot_status,slot_count from public.slot_metrics" + 
+			" where slot_area = '"+ slotArea + "'";
+List<Map <String, Object>> rows = getJdbcTemplate().queryForList(query);
+List<SlotMetrics> slotResults = new ArrayList<SlotMetrics>();
+
+for (Map<String, Object> row:rows){
+SlotMetrics slotMet = new SlotMetrics();
+slotMet.setSlotStatus((String)row.get("slot_status"));
+slotMet.setCount((int)row.get("slot_count"));
+slotResults.add(slotMet);
+}
+	
+SlotStatus slotStatus = new SlotStatus(100,slotResults);
+return slotStatus;
+
+}
 
 }
