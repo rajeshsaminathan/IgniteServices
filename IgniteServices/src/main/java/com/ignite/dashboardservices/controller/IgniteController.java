@@ -20,44 +20,48 @@ public class IgniteController {
 
 	@RequestMapping("/")
 	public String helloWorld() {
-				return "Welcome to Ignite 2.0";
-	}
-
+		return "Welcome to Ignite 2.0";
+		}
+	
 	@RequestMapping("/palletinquiry")
-	public ReceivingMetrics getRcvMetrics(
-			@RequestParam(value = "pallet") String palletId) {
+	public ReceivingMetrics getRcvMetrics(@RequestParam(value = "pallet") String palletId) {
 		return receivingDaoSrvc.getReceivingMetrics(palletId);
-
-		/*
-		 * return new
-		 * SimpleDateFormat("MM/dd/yyyy HH:mm").format(receivingDaoSrvc
-		 * .getReceivingMetrics(palletId).rcvdDate);
-		 */
+		
+		/*return new SimpleDateFormat("MM/dd/yyyy HH:mm").format(receivingDaoSrvc.getReceivingMetrics(palletId).rcvdDate);*/
 	}
 
 	@RequestMapping("/listpallet")
 	public List<ReceivingMetrics> getallRcvMetrics() {
 		return receivingDaoSrvc.getallReceivingMetrics();
-	}
-
+		}
+	
 	@RequestMapping("/slot/SSTK")
 	public List<SlotMetrics> getSSTKSlotMetrics() {
 		return receivingDaoSrvc.getSlotMetrics("SSTK");
-	}
+		}
 
 	@RequestMapping("/slot/PBYL")
 	public List<SlotMetrics> getPBYLSlotMetrics() {
 		return receivingDaoSrvc.getSlotMetrics("PBYL");
-	}
-
+		}
+	
 	@RequestMapping("/slot/EASYPICK")
 	public List<SlotMetrics> getPickSlotMetrics() {
 		return receivingDaoSrvc.getSlotMetrics("EASYPICK");
-	}
+		}
 	
 	@RequestMapping("/slotstatus/SSTK")
 	public SlotStatus getSSTKSlotStatus() {
 		return receivingDaoSrvc.getSlotStatus("SSTK");
-	}
-
+		}
+	
+	@RequestMapping("/slotstatus/PBYL")
+	public SlotStatus getPBYLSlotStatus() {
+		return receivingDaoSrvc.getSlotStatus("PBYL");
+		}
+	
+	@RequestMapping("/slotstatus/PICK")
+	public SlotStatus getPICKSlotStatus() {
+		return receivingDaoSrvc.getSlotStatus("EASYPICK");
+		}
 }
