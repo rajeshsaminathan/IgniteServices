@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ignite.dashboardservices.model.ItemDetails;
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.model.SlotStatus;
@@ -64,4 +65,11 @@ public class IgniteController {
 	public SlotStatus getPICKSlotStatus() {
 		return receivingDaoSrvc.getSlotStatus("EASYPICK");
 		}
+	
+	@RequestMapping("")
+	public List<ItemDetails> getItemDetails() {
+		return receivingDaoSrvc.getItemDetails();
+		
+		}
+	
 }

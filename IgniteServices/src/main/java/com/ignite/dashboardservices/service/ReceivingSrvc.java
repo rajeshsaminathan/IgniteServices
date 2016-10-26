@@ -2,6 +2,7 @@ package com.ignite.dashboardservices.service;
 
 import java.util.List;
 
+import com.ignite.dashboardservices.model.ItemDetails;
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.model.SlotStatus;
@@ -11,4 +12,5 @@ public interface ReceivingSrvc {
 	List<ReceivingMetrics> getallReceivingMetrics ();
 	List<SlotMetrics> getSlotMetrics(String slotArea);
 	SlotStatus getSlotStatus(String slotArea);
+	List<ItemDetails> getItemDetails();
 }

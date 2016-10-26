@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.ignite.dashboardservices.model.ItemDetails;
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.model.SlotStatus;
@@ -99,6 +100,24 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 		SlotStatus slotStatus = new SlotStatus(totalSlot, slotResults);
 		return slotStatus;
 
+	}
+
+	@Override
+	public List <ItemDetails> getitemDetails() {
+		String query = "SELECT item_nbr,item_desc,item_qty from public.item";
+		List <Map<String, Object>> rows = getJdbcTemplate().queryForList(query);
+		List <ItemDetails> itemDetails = new ArrayList<>();
+		
+		for (Map<String, Object> row:rows){
+			
+			ItemDetails itemDet = new ItemDetails();
+			itemDet.setItemNbr((int)row.get("item_nbr"));
+			itemDet.setItemDesc((String)row.get("item_desc"));
+			itemDet.setItemQty((int)row.get("item_qty"));
+			itemDetails.add(itemDet);
+		}
+		
+		return itemDetails;
 	}
 
 }

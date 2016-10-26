@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ignite.dashboardservices.model.ItemDetails;
 import com.ignite.dashboardservices.model.ReceivingMetrics;
 import com.ignite.dashboardservices.model.SlotMetrics;
 import com.ignite.dashboardservices.model.SlotStatus;
@@ -33,6 +34,11 @@ public class ReceivingSrvcImpl implements ReceivingSrvc {
 	@Override
 	public SlotStatus getSlotStatus(String slotArea) {
 		return receivingDao.getSlotStatus(slotArea);
+	}
+
+	@Override
+	public List<ItemDetails> getItemDetails() {
+		return receivingDao.getitemDetails();
 	}
 
 
