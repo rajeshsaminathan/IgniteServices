@@ -66,7 +66,7 @@ public class IgniteController {
 		return receivingDaoSrvc.getSlotStatus("EASYPICK");
 		}
 	
-	@RequestMapping("")
+	@RequestMapping("/iteminfo")
 	public List<ItemDetails> getItemDetails() {
 		return receivingDaoSrvc.getItemDetails();
 		
