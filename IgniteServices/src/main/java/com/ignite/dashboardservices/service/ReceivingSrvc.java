@@ -13,4 +13,5 @@ public interface ReceivingSrvc {
 	List<SlotMetrics> getSlotMetrics(String slotArea);
 	SlotStatus getSlotStatus(String slotArea);
 	List<ItemDetails> getItemDetails();
-}
+	int updateItemDetails(ItemDetails itemDetails);
+	}

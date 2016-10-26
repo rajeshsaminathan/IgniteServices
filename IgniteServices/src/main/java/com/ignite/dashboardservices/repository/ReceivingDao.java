@@ -14,5 +14,6 @@ public interface ReceivingDao {
 	List<SlotMetrics> getSlotMetrics(String slotArea);
 	SlotStatus getSlotStatus(String slotArea);
 	List<ItemDetails> getitemDetails();
+	int updateItemDetails(ItemDetails itemDetails);
 }
 

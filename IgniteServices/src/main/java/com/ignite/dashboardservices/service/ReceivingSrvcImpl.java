@@ -41,5 +41,10 @@ public class ReceivingSrvcImpl implements ReceivingSrvc {
 		return receivingDao.getitemDetails();
 	}
 
+	@Override
+	public int updateItemDetails(ItemDetails itemDetails) {
+		return receivingDao.updateItemDetails(itemDetails);
+	}
+
 
 }

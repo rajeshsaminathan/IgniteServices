@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,12 +65,18 @@ public class IgniteController {
 	@RequestMapping("/slotstatus/PICK")
 	public SlotStatus getPICKSlotStatus() {
 		return receivingDaoSrvc.getSlotStatus("EASYPICK");
-		}
+		
+			}
 	
-	@RequestMapping("/iteminfo")
+	@RequestMapping(value="/iteminfo", method =  RequestMethod.GET)
 	public List<ItemDetails> getItemDetails() {
 		return receivingDaoSrvc.getItemDetails();
 		
 		}
 	
+	@RequestMapping(value="/iteminfo", method =  RequestMethod.PUT)
+	public int updateItemDetails(ItemDetails itemDetails)
+    {
+        return receivingDaoSrvc.updateItemDetails(itemDetails);
+    }
 }

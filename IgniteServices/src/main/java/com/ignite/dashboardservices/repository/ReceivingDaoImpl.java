@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -118,6 +119,14 @@ public class ReceivingDaoImpl extends JdbcDaoSupport implements ReceivingDao {
 		}
 		
 		return itemDetails;
+	}
+
+	@Override
+	public int updateItemDetails(ItemDetails itemDetails) {
+		String query = "UPDATE public.item SET item_qty = ? WHERE item_nbr = ?";
+		int nrows = getJdbcTemplate().update(query,  new Object[]{(int)itemDetails.getItemQty(),(int)itemDetails.getItemNbr()});
+		
+		return nrows;
 	}
 
 }
